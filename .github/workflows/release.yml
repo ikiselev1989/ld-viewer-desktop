@@ -1,0 +1,68 @@
+name: "release"
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ windows-latest, macos-latest, ubuntu-20.04 ]
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-20.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+
+      - name: install app dependencies and build it
+        run: yarn && yarn tauri:build
+
+      - name: Easy Zip Files
+        uses: vimtor/action-zip@v1
+        with:
+          files: src-tauri/target/release/bundle/
+          dest: ${{ matrix.platform }}.zip
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundles
+          path: ${{ matrix.platform }}.zip
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: bundles
+          path: release
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          artifacts: release/*
+          allowUpdates: true
