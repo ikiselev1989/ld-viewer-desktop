@@ -85,9 +85,19 @@
 		});
 	};
 
-	onMount(async () => {
+	const disableSomeButtons = () => {
+		if (location.host !== 'tauri.localhost') return;
+
 		document.addEventListener('contextmenu', event => event.preventDefault());
 
+		document.addEventListener('keydown', e => {
+			if (e.key === 'F5' || e.key === 'F12') {
+				e.preventDefault();
+			}
+		});
+	};
+
+	onMount(async () => {
 		await data.init();
 		const lastFiltersState = await CacheController.getLastFiltersState();
 
@@ -113,6 +123,8 @@
 		await updateEntriesList();
 		await appWindow.show();
 		await wait(1000);
+
+		disableSomeButtons();
 
 		$modalsState.startScreen = false;
 	});
