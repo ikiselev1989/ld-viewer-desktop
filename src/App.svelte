@@ -116,6 +116,8 @@
 
 		filters.subscribe(() => {
 			pagination.first();
+			// $pagination.page = 0;
+			console.log($pagination.page);
 			filterEntriesList();
 			CacheController.setLastState($filters, $event);
 		});

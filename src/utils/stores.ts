@@ -232,22 +232,22 @@ export const pagination: PaginationStore = (() => {
 	return {
 		set,
 		subscribe,
-		first: () => update(pag => ({
-			...pag,
-			page: 0,
-		})),
-		last: () => update(pag => ({
-			...pag,
-			page: pag.maxPage,
-		})),
-		next: () => update(pag => ({
-			...pag,
-			page: pag.page + 1,
-		})),
-		prev: () => update(pag => ({
-			...pag,
-			page: pag.page - 1,
-		})),
+		first: () => update(pag => {
+			pag.page = 0;
+			return pag;
+		}),
+		last: () => update(pag => {
+			pag.page = pag.maxPage;
+			return pag;
+		}),
+		next: () => update(pag => {
+			pag.page = pag.page + 1;
+			return pag;
+		}),
+		prev: () => update(pag => {
+			pag.page = pag.page - 1;
+			return pag;
+		}),
 	};
 })();
 
