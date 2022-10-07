@@ -70,6 +70,10 @@
     &--jam {
       @apply text-orange-600;
     }
+
+    &--extra {
+      @apply text-green-400;
+    }
   }
 
   .card {

@@ -39,7 +39,7 @@ export const data: DataStore = (() => {
 		let page = 0;
 
 		const loop = async () => {
-			const { feed } = await api.get(`${API_PATH}node/feed/${eventId}/smart+reverse+parent/item/game/compo+jam/?limit=50&offset=${page * 50}`);
+			const { feed } = await api.get(`${API_PATH}node/feed/${eventId}/smart+reverse+parent/item/game/compo+jam+extra/?limit=50&offset=${page * 50}`);
 
 			if (feed && feed.length > 0) {
 				const feedIds = Filters.feedFilter(feed);
@@ -211,7 +211,7 @@ export const eventGames = writable([]);
 
 export const gamesList = writable([]);
 
-export const types = writable<CATEGORIES[]>([CATEGORIES.ALL, CATEGORIES.COMPO, CATEGORIES.JAM]);
+export const types = writable<CATEGORIES[]>([CATEGORIES.ALL, CATEGORIES.COMPO, CATEGORIES.JAM, CATEGORIES.EXTRA]);
 
 export const filters = writable<IFilters>({
 	category: get(types)[0],

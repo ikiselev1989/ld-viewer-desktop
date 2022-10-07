@@ -2,6 +2,7 @@ export enum CATEGORIES {
 	ALL = 'All',
 	COMPO = 'Compo',
 	JAM = 'Jam',
+	EXTRA = 'Extra',
 }
 
 export enum PLATFORMS {
