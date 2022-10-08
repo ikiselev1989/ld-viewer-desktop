@@ -10,9 +10,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [ windows-latest, macos-latest, ubuntu-20.04 ]
+        platform: [ windows-latest ]
 
     runs-on: ${{ matrix.platform }}
+    env:
+      TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
     steps:
       - uses: actions/checkout@v2
 
@@ -38,7 +40,7 @@ jobs:
       - name: Easy Zip Files
         uses: vimtor/action-zip@v1
         with:
-          files: src-tauri/target/release/bundle/
+          files: src-tauri/target/release/bundle/msi
           dest: ${{ matrix.platform }}.zip
 
       - name: upload artifact
