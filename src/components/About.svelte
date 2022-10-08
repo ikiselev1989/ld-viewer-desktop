@@ -16,7 +16,7 @@
 				</p>
 				<p>
 					If you want to contribute or star it, please check this <a
-					href='https://github.com/ikiselev1989/ludum-dare-viewer' target='_blank'>Github</a> repository.
+					href='https://github.com/ikiselev1989/ld-viewer-desktop' target='_blank'>Github</a> repository.
 				</p>
 				<div class='[ p-1 absolute top-0 right-2 cursor-pointer ]' transition:scale
 						 on:click='{()=>$modalsState.about = false}'>
