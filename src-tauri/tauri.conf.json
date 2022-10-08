@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "Ludum Dare Viewer",
+    "productName": "LudumDareViewer",
     "version": "1.0.1"
   },
   "tauri": {
@@ -53,7 +53,12 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "endpoints": [
+        "https://raw.githubusercontent.com/ikiselev1989/ld-viewer-desktop/master/update.json"
+      ],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEREMzcxQkNGODk1NTRDQTcKUldTblRGV0p6eHMzM1lXeUQvZzB3VGZuRDlkdG9lV3FOOGlUVHZyajF0ZFduc2VoYzBNb3dmeEUK"
     },
     "windows": [
       {

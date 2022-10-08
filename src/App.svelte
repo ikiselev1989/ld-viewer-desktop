@@ -8,6 +8,7 @@
 	import About from './components/About.svelte';
 	import Filters from './components/Filters.svelte';
 	import Pagination from './partials/Pagination.svelte';
+	import VersionInformer from './components/VersionInformer.svelte';
 	import StartScreen from './components/StartScreen.svelte';
 	import CacheController from './utils/cache';
 	import { maxPage, wait } from './utils/helpers';
@@ -116,8 +117,6 @@
 
 		filters.subscribe(() => {
 			pagination.first();
-			// $pagination.page = 0;
-			console.log($pagination.page);
 			filterEntriesList();
 			CacheController.setLastState($filters, $event);
 		});
@@ -151,6 +150,8 @@
 	<Filters />
 
 	<Pagination on:pageChanged={()=>{filterEntriesList();scrollToTop();}} />
+
+	<VersionInformer />
 </div>
 
 <style global lang='scss'>
