@@ -22,6 +22,7 @@
           "message": "ci(release): ${nextRelease.version}\n${nextRelease.notes}",
           "assets": [
             "package.json",
+            "update.json",
             "src-tauri/tauri.conf.json"
           ]
         }
