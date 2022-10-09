@@ -37,17 +37,11 @@ jobs:
       - name: install app dependencies and build it
         run: yarn && yarn tauri:build
 
-      - name: Easy Zip Files
-        uses: vimtor/action-zip@v1
-        with:
-          files: src-tauri/target/release/bundle/msi
-          dest: ${{ matrix.platform }}.zip
-
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: bundles
-          path: ${{ matrix.platform }}.zip
+          path: src-tauri/target/release/bundle/msi
 
   release:
     name: Release
