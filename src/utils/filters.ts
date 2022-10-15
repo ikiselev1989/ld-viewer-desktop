@@ -1,5 +1,6 @@
 import { ICONS, ITEM_LIMIT, LD_SITE_PATH, LD_STATIC_PATH, PLATFORMS_ICON } from '../constants';
 import { CATEGORIES, PLATFORMS } from '../enums';
+import { escapeRegExp } from './helpers';
 
 export default class Filters {
 	static feedFilter(feed) {
@@ -62,7 +63,7 @@ export default class Filters {
 
 	static nodesTitleFilter(nodes, title) {
 		return nodes.filter((node) => {
-			return new RegExp(title, 'gmi').test(node.name);
+			return new RegExp(escapeRegExp(title), 'gmi').test(node.name);
 		});
 	}
 

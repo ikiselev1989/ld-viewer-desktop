@@ -31,3 +31,7 @@ export const wait = async (duration: number): Promise<void> => {
 		});
 	});
 };
+
+export const escapeRegExp = string => {
+	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
