@@ -53,7 +53,7 @@
       "csp": null
     },
     "updater": {
-      "active": true,
+      "active": false,
       "endpoints": [
         "https://raw.githubusercontent.com/ikiselev1989/ld-viewer-desktop/master/update.json"
       ],
