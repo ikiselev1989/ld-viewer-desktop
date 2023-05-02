@@ -38,6 +38,17 @@ jobs:
       - name: install app dependencies and build it
         run: yarn && yarn tauri:build
 
+      - name: change updater signature
+        run: |
+          value=`cat src-tauri/target/release/bundle/msi/LudumDareViewer_*.msi.sig`
+          cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
+
+      - name: commit and push updater signature
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_prefix: "[AUTO] updater signature"
+
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
@@ -61,5 +72,5 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
         with:
-          artifacts: release/*
+          artifacts: release/*.msi.zip, release/*.msi
           allowUpdates: true
