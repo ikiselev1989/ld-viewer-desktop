@@ -48,7 +48,7 @@ jobs:
       - name: commit and push updater signature
         uses: devops-infra/action-commit-push@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
           commit_prefix: "[AUTO] updater signature"
 
       - name: upload artifact
