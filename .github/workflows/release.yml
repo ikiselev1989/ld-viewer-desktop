@@ -41,6 +41,7 @@ jobs:
       - name: change updater signature
         shell: bash
         run: |
+          ls
           ver=$(jq -r ".version" package.json)
           value=`cat 'src-tauri/target/release/bundle/msi/LudumDareViewer_'$ver'_x64_en-US.msi.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
