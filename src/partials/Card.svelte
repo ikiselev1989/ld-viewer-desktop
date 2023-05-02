@@ -147,7 +147,7 @@
       }
 
       .card__overlay {
-        @apply opacity-50;
+        @apply opacity-75;
       }
     }
 
