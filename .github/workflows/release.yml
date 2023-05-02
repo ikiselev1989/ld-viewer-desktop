@@ -45,10 +45,10 @@ jobs:
           path: src-tauri/target/release/bundle/msi
 
       - name: save current version as variable
-          shell: bash
-          run: |
-            ver=$(jq -r ".version" package.json)
-            echo "current_version='$ver'" >> $GITHUB_ENV
+        shell: bash
+        run: |
+          ver=$(jq -r ".version" package.json)
+          echo "current_version='$ver'" >> $GITHUB_ENV
 
   release:
     name: Release
