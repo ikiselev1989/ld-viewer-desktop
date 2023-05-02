@@ -98,13 +98,15 @@ export const data: DataStore = (() => {
 	return {
 		subscribe,
 		init: async () => {
+			const lastEvent = await getLastEvent();
 			const cache = await CacheController.getData();
 
 			if (cache) {
+				cache.lastEvent = lastEvent;
+
 				return set(cache);
 			}
 
-			const lastEvent = await getLastEvent();
 			const lastEventNodeId = await getEventId(lastEvent);
 			const eventEntries = await getEventEntries(lastEventNodeId);
 
