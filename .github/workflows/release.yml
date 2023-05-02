@@ -42,8 +42,7 @@ jobs:
         shell: bash
         run: |
           ver=$(jq ".version" package.json)
-          echo $ver
-          value=`cat src-tauri/target/release/bundle/msi/LudumDareViewer_$ver_x64_en-US.msi.sig`
+          value=`cat 'src-tauri/target/release/bundle/msi/LudumDareViewer_'$ver'_x64_en-US.msi.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
       - name: commit and push updater signature
