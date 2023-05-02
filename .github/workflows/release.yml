@@ -38,24 +38,17 @@ jobs:
       - name: install app dependencies and build it
         run: yarn && yarn tauri:build
 
-      - name: change updater signature
-        shell: bash
-        run: |
-          ver=$(jq -r ".version" package.json)
-          value=`cat 'src-tauri/target/release/bundle/msi/LudumDareViewer_'$ver'_x64_en-US.msi.zip.sig'`
-          cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
-
-      - name: commit and push updater signature
-        uses: devops-infra/action-commit-push@master
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          commit_prefix: "[AUTO] updater signature"
-
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: bundles
           path: src-tauri/target/release/bundle/msi
+
+      - name: save current version as variable
+          shell: bash
+          run: |
+            ver=$(jq -r ".version" package.json)
+            echo "current_version='$ver'" >> $GITHUB_ENV
 
   release:
     name: Release
@@ -70,6 +63,18 @@ jobs:
         with:
           name: bundles
           path: release
+
+      - name: change updater signature
+        shell: bash
+        run: |
+          value=`cat 'src-tauri/target/release/bundle/msi/LudumDareViewer_'${{ env.current_version }}'_x64_en-US.msi.zip.sig'`
+          cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
+
+      - name: commit and push updater signature
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: ${{ secrets.GH_TOKEN }}
+          commit_prefix: "[AUTO] updater signature"
 
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
