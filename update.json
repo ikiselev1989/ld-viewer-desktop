@@ -1,11 +1,11 @@
 {
-  "version": "v1.0.0",
-  "notes": "Test version",
-  "pub_date": "1683051725",
+  "version": "1.3.0",
+  "notes": "#",
+  "pub_date": "1683053390",
   "platforms": {
     "windows-x86_64": {
       "signature": "Content of app.msi.sig",
-      "url": "https://github.com/ikiselev1989/ld-viewer-desktop/releases/download/1.1.1/LudumDareViewer_1.1.1_x64_en-US.msi.zip"
+      "url": "https://github.com/ikiselev1989/ld-viewer-desktop/releases/download/1.3.0/LudumDareViewer_1.3.0_x64_en-US.msi.zip"
     }
   }
 }
