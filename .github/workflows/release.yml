@@ -51,12 +51,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: bundles
-          path: release
+          path: ~/release
 
       - name: change updater signature
         shell: bash
         run: |
-          ls
           tag=`sed 's/^v\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
           value=`cat '~/release/LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
@@ -71,5 +70,5 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
         with:
-          artifacts: release/*.msi.zip, release/*.msi
+          artifacts: ~/release/*.msi.zip, ~/release/*.msi
           allowUpdates: true
