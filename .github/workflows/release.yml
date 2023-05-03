@@ -39,7 +39,9 @@ jobs:
     needs:
       - build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
 
       - name: Set output
         id: vars
@@ -51,16 +53,12 @@ jobs:
           name: bundles
           path: release
 
-      - uses: actions/checkout@v3
-        with:
-          toke: ${{ secrets.PAT }}
-
       - name: change updater signature
         shell: bash
         run: |
           ls
           tag=`sed 's/^v\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
-          value=`cat 'release/LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
+          value=`cat '~/release/LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
       - name: Commit report
