@@ -73,7 +73,8 @@ jobs:
         uses: devops-infra/action-commit-push@master
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          commit_prefix: "[AUTO] updater signature"
+          commit_prefix: "[AUTO]"
+          commit_message: "updater signature"
 
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
