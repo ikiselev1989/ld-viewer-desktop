@@ -65,7 +65,7 @@ jobs:
       - name: change updater signature
         shell: bash
         run: |
-          tag=`sed 's/^@\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
+          tag=`sed 's/^v\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
           value=`cat 'src-tauri/target/release/bundle/msi/LudumDareViewer_${{ steps.vars.outputs.tag }}_x64_en-US.msi.zip.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
