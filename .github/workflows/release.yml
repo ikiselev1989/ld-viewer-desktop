@@ -74,7 +74,8 @@ jobs:
           toke: ${{ secrets.PAT }}
       - name: Commit report
         run: |
-          git config --global user.name 'LDViewerBot'
+          git config user.name 'Ilya Kiselev'
+          git config user.email 'ikiselev1989@gmail.com'
           git commit -am "Automated update"
           git push
 
