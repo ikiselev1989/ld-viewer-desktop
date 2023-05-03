@@ -69,12 +69,14 @@ jobs:
           value=`cat 'release/LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
-      - name: commit and push updater signature
-        uses: devops-infra/action-commit-push@master
+      - uses: actions/checkout@v3
         with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          commit_prefix: "[AUTO]"
-          commit_message: "updater signature"
+          toke: ${{ secrets.PAT }}
+      - name: Commit report
+        run: |
+          git config --global user.name 'LDViewerBot'
+          git commit -am "Automated update"
+          git push
 
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
