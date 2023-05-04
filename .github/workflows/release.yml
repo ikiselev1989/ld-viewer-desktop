@@ -62,12 +62,12 @@ jobs:
           tag=`sed 's/^v\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
           value=`cat './LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
           cd ../
-          la
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
       - name: Commit report
         shell: bash
         run: |
+          ls
           git branch
           git config user.name 'Ilya Kiselev'
           git config user.email 'ikiselev1989@gmail.com'
