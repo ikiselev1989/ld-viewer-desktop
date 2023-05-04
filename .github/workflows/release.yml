@@ -84,4 +84,5 @@ jobs:
     steps:
       - name: Commit report
         run: |
+          ls
           git branch
