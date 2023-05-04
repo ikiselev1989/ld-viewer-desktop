@@ -83,5 +83,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Commit report
-          run: |
-            git branch
+        run: |
+          git branch
