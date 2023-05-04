@@ -56,11 +56,8 @@ jobs:
       - name: change updater signature
         shell: bash
         run: |
-          cd ~/release
-          ls
           tag=`sed 's/^v\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
-          cat './LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'
-          value=`cat './LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
+          value=`cat '~/release/LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
       - name: Commit report
