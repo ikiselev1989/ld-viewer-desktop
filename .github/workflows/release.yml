@@ -65,6 +65,7 @@ jobs:
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
       - name: Commit report
+        shell: bash
         run: |
           git branch
           git config user.name 'Ilya Kiselev'
@@ -83,6 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Commit report
+        shell: bash
         run: |
           ls
           git branch
