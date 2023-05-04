@@ -62,7 +62,7 @@ jobs:
           cd ./release
           tag=`sed 's/^v\(.*\)/\1/' <<<"${{ steps.vars.outputs.tag }}"`
           signature=`cat './LudumDareViewer_'$tag'_x64_en-US.msi.zip.sig'`
-          pub_date="$(date --rfc-3339=sec)"
+          pub_date="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
           cd ../
           cat <<<$(jq --arg pub_date "$pub_date" '.pub_date = $pub_date' update.json) >update.json
           cat <<<$(jq --arg signature "$signature" '.platforms."windows-x86_64".signature = $signature' update.json) >update.json
