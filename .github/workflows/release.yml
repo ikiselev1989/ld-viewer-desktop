@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    if: false
     name: Build
     runs-on: windows-latest
     env:
@@ -34,6 +35,7 @@ jobs:
           path: src-tauri/target/release/bundle/msi
 
   release:
+    if: false
     name: Release
     runs-on: ubuntu-latest
     needs:
@@ -64,7 +66,7 @@ jobs:
 
       - name: Commit report
         run: |
-          git checkout master
+          git branch
           git config user.name 'Ilya Kiselev'
           git config user.email 'ikiselev1989@gmail.com'
           git commit -am "Automated update"
@@ -75,3 +77,11 @@ jobs:
         with:
           artifacts: ./release/*.msi.zip, ./release/*.msi
           allowUpdates: true
+
+  test-git:
+    name: test-git
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commit report
+          run: |
+            git branch
