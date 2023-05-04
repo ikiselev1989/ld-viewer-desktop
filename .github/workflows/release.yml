@@ -87,4 +87,3 @@ jobs:
         shell: bash
         run: |
           ls
-          git branch
