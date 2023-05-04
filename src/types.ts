@@ -1,7 +1,8 @@
 import type { Readable } from 'svelte/store';
-import type { CATEGORIES, PLATFORMS } from './enums';
+import type { CATEGORIES, PLATFORMS, SORT } from './enums';
 
 export interface Data {
+	appVersion: string,
 	lastEvent: number,
 	eventsId: { [key: number]: number },
 	entries: { [key: number]: Entry[] },
@@ -46,4 +47,23 @@ export interface Filters {
 	search: string,
 	onlyFavorites: boolean,
 	hideVisited: boolean,
+	sort: SORT
+}
+
+export interface EntryMagic {
+	cool: number
+	feedback: number
+	given: number
+	grade: number
+	smart: number
+}
+
+export interface EntryNode {
+	id: string
+	name: string
+	magic: EntryMagic
+	type: string
+	url: string
+	cover: string
+	sources: string[],
 }

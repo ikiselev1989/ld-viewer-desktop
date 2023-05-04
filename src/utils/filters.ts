@@ -1,6 +1,7 @@
 import { ICONS, ITEM_LIMIT, LD_SITE_PATH, LD_STATIC_PATH, PLATFORMS_ICON } from '../constants';
-import { CATEGORIES, PLATFORMS } from '../enums';
+import { CATEGORIES, PLATFORMS, SORT } from '../enums';
 import { escapeRegExp } from './helpers';
+import type { EntryNode } from '../types';
 
 export default class Filters {
 	static feedFilter(feed) {
@@ -11,7 +12,7 @@ export default class Filters {
 
 	static nodesFieldsFilter(nodes) {
 		return nodes.map((item) => {
-			let { id, name, meta, path, subsubtype } = item;
+			let { id, name, meta, path, subsubtype, magic } = item;
 			let links = [];
 
 			Object.keys(meta).map((key) => {
@@ -23,6 +24,7 @@ export default class Filters {
 			return {
 				id,
 				name,
+				magic,
 				type: subsubtype,
 				url: LD_SITE_PATH + path.replace('/^\//', ''),
 				cover: meta.cover ? `${LD_STATIC_PATH}${meta.cover.replace('///', '')}.480x384.fit.jpg` : '/no-image.jpeg',
@@ -55,6 +57,32 @@ export default class Filters {
 		return nodes.filter((node) => {
 			return node.type === type.toLowerCase();
 		});
+	}
+
+	static nodesSort(nodes: EntryNode[], sort: SORT = SORT.SMART): EntryNode[] {
+		let sortedNodes: EntryNode[];
+
+		switch (sort) {
+			case SORT.CLASSIC:
+				sortedNodes = nodes.sort((a, b) => a.magic.cool < b.magic.cool ? 1 : -1);
+				break;
+			case SORT.DANGER:
+				sortedNodes = nodes.filter((node) => node.magic.grade < 20).sort((a, b) => a.magic.grade > b.magic.grade ? 1 : -1);
+				break;
+			case SORT.ZERO:
+				sortedNodes = nodes.filter((node => node.magic.grade === 0));
+				break;
+			case SORT.FEEDBACK:
+				sortedNodes = nodes.sort((a, b) => a.magic.given < b.magic.given ? 1 : -1);
+				break;
+			case SORT.GRADE:
+				sortedNodes = nodes.sort(((a, b) => a.magic.grade < b.magic.grade ? 1 : -1));
+				break;
+			default:
+				sortedNodes = nodes.sort((a, b) => a.magic.smart < b.magic.smart ? 1 : -1);
+		}
+
+		return sortedNodes;
 	}
 
 	static nodesPageFilter(nodes, page, perPage = ITEM_LIMIT) {

@@ -1,14 +1,16 @@
-import { derived, get, writable } from 'svelte/store';
+import { derived, get, readable, writable } from 'svelte/store';
 import type { Data, DataStore, Entry, Filters as IFilters, PaginationData, PaginationStore } from '../types';
-import { CATEGORIES } from '../enums';
+import { CATEGORIES, SORT } from '../enums';
 import CacheController from './cache';
 import api from './api';
-import { API_PATH, MAX_NODES } from '../constants';
+import { API_PATH, DEFAULT_FILTERS_STATE, MAX_NODES } from '../constants';
 import { asyncForEach, chunkArray } from './helpers';
 import Filters from './filters';
+import { getVersion } from '@tauri-apps/api/app';
 
 export const data: DataStore = (() => {
 	const { set, subscribe } = writable<Data>({
+		appVersion: '',
 		entries: {},
 		visited: {},
 		eventsId: {},
@@ -39,7 +41,7 @@ export const data: DataStore = (() => {
 		let page = 0;
 
 		const loop = async () => {
-			const { feed } = await api.get(`${API_PATH}node/feed/${eventId}/smart+reverse+parent/item/game/compo+jam+extra/?limit=50&offset=${page * 50}`);
+			const { feed } = await api.get(`${API_PATH}node/feed/${eventId}/parent/item/game/compo+jam+extra/?limit=50&offset=${page * 50}`);
 
 			if (feed && feed.length > 0) {
 				const feedIds = Filters.feedFilter(feed);
@@ -98,10 +100,11 @@ export const data: DataStore = (() => {
 	return {
 		subscribe,
 		init: async () => {
+			const currentAppVersion = await getVersion();
 			const lastEvent = await getLastEvent();
 			const cache = await CacheController.getData();
 
-			if (cache) {
+			if (cache && cache.appVersion === currentAppVersion) {
 				cache.lastEvent = lastEvent;
 
 				return set(cache);
@@ -110,7 +113,8 @@ export const data: DataStore = (() => {
 			const lastEventNodeId = await getEventId(lastEvent);
 			const eventEntries = await getEventEntries(lastEventNodeId);
 
-			const data = {
+			const data: Data = {
+				appVersion: currentAppVersion,
 				lastEvent,
 				eventsId: { [lastEvent]: lastEventNodeId },
 				entries: { [lastEvent]: eventEntries },
@@ -213,15 +217,10 @@ export const eventGames = writable([]);
 
 export const gamesList = writable([]);
 
-export const types = writable<CATEGORIES[]>([CATEGORIES.ALL, CATEGORIES.COMPO, CATEGORIES.JAM, CATEGORIES.EXTRA]);
+export const types = readable<CATEGORIES[]>([CATEGORIES.ALL, CATEGORIES.COMPO, CATEGORIES.JAM, CATEGORIES.EXTRA]);
+export const sort_types = readable<SORT[]>([SORT.SMART, SORT.CLASSIC, SORT.DANGER, SORT.ZERO, SORT.FEEDBACK, SORT.GRADE]);
 
-export const filters = writable<IFilters>({
-	category: get(types)[0],
-	platforms: [],
-	search: '',
-	onlyFavorites: false,
-	hideVisited: false,
-});
+export const filters = writable<IFilters>(DEFAULT_FILTERS_STATE);
 
 export const event = writable<number>();
 

@@ -1,3 +1,6 @@
+import { CATEGORIES, SORT } from './enums';
+import type { Filters } from './types';
+
 export const LD_SITE_PATH = 'https://ldjam.com/';
 export const LD_STATIC_PATH = 'https://static.jam.vg/';
 export const API_PATH = 'https://api.ldjam.com/vx/';
@@ -20,3 +23,11 @@ export const PLATFORMS_ICON = {
 };
 export const ITEM_LIMIT = 24;
 export const MAX_NODES = 250;
+export const DEFAULT_FILTERS_STATE: Filters = {
+	category: CATEGORIES.ALL,
+	platforms: [],
+	search: '',
+	onlyFavorites: false,
+	hideVisited: false,
+	sort: SORT.SMART,
+};

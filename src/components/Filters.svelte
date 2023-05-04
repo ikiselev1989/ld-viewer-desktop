@@ -1,12 +1,16 @@
 <script lang='ts'>
 	import { fly } from '../transitions';
-	import { busy, filters, modalsState, types } from '../utils/stores';
+	import { busy, filters, modalsState, sort_types, types } from '../utils/stores';
 	import Select from '../partials/Select.svelte';
 	import Checkbox from '../partials/Checkbox.svelte';
 	import { PLATFORMS } from '../enums';
 
 	const changeType = e => {
 		$filters.category = $types[e.detail.value];
+	};
+
+	const changeSortType = e => {
+		$filters.sort = $sort_types[e.detail.value];
 	};
 
 	const changePlatformFilter = (value: boolean, platform: PLATFORMS) => {
@@ -19,10 +23,17 @@
 {#if $modalsState.filters}
 	<div class='[ p-5 pt-24 fixed inset-y-0 right-0 grid auto-rows-min gap-y-4 bg-gray-400 box-border z-20 ]'
 			 transition:fly={{opacity:1, x:'100%'}} data-disabled='{$busy}'>
-		<label class='[ flex items-center ]'>
+		<label class='[ flex items-center justify-between ]'>
 			<span class='[ font-bold text-white ]'>Category:</span>
 			<div class='w-20 ml-4'>
 				<Select bind:value={$filters.category} options={$types} on:change={changeType} />
+			</div>
+		</label>
+
+		<label class='[ flex items-center justify-between ]'>
+			<span class='[ font-bold text-white ]'>Sort:</span>
+			<div class='w-20 ml-4'>
+				<Select bind:value={$filters.sort} options={$sort_types} on:change={changeSortType} />
 			</div>
 		</label>
 

@@ -12,7 +12,7 @@
 		<div class='[ w-full px-2 py-1 rounded bg-white cursor-pointer text-right hover:bg-gray-200]'
 				 on:click={()=>open=!open}>{prefix}{value}</div>
 		{#if open}
-			<div class='[ w-full absolute -bottom-2 transform translate-y-full bg-white rounded overflow-hidden ]'>
+			<div class='[ w-full absolute -bottom-2 transform translate-y-full bg-white rounded overflow-hidden z-10 ]'>
 				{#each options as title, index}
 					<div class='[ px-2 py-1 cursor-pointer hover:bg-gray-400 hover:text-white ]'
 							 on:click={()=>{value=options[index]; open=false}}>{prefix}{title}</div>

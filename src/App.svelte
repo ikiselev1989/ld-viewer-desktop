@@ -12,6 +12,7 @@
 	import StartScreen from './components/StartScreen.svelte';
 	import CacheController from './utils/cache';
 	import { maxPage, wait } from './utils/helpers';
+	import { DEFAULT_FILTERS_STATE } from './constants';
 
 	const updateEntriesList = async () => {
 		$busy = true;
@@ -50,6 +51,7 @@
 		}
 
 		if (!searchEnabled && !$filters.onlyFavorites) {
+			filteredList = FiltersUtils.nodesSort(filteredList, $filters.sort);
 			$pagination.maxPage = maxPage(filteredList);
 			filteredList = FiltersUtils.nodesPageFilter(filteredList, $pagination.page);
 		}
@@ -104,7 +106,10 @@
 		const lastFiltersState = await CacheController.getLastFiltersState();
 
 		if (lastFiltersState) {
-			$filters = lastFiltersState.filters;
+			$filters = {
+				...DEFAULT_FILTERS_STATE,
+				...lastFiltersState.filters,
+			};
 			$event = parseInt(lastFiltersState.event.toString());
 		} else {
 			$event = parseInt($data.lastEvent.toString());
