@@ -64,6 +64,7 @@ jobs:
 
       - name: Commit report
         run: |
+          git checkout master
           git config user.name 'Ilya Kiselev'
           git config user.email 'ikiselev1989@gmail.com'
           git commit -am "Automated update"
