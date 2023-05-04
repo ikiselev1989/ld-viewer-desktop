@@ -43,6 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          ref: ${{ github.head_ref }}
           token: ${{ secrets.PAT }}
 
       - name: Set output
@@ -65,14 +66,9 @@ jobs:
           cat <<<$(jq '.platforms."windows-x86_64".signature |= "'$value'"' update.json) >update.json
 
       - name: Commit report
-        shell: bash
-        run: |
-          ls
-          git branch
-          git config user.name 'Ilya Kiselev'
-          git config user.email 'ikiselev1989@gmail.com'
-          git commit -am "Automated update"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Automatic update'
 
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
