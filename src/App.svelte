@@ -16,6 +16,7 @@
 	const updateEntriesList = async () => {
 		$busy = true;
 		$modalsState.loader = true;
+		$modalsState.search = $filters.search && $filters.search.length >= 3;
 
 		if (!$data.entries[$event]) await data.updateEventData($event);
 
