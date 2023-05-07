@@ -100,26 +100,22 @@ export const data: DataStore = (() => {
 	return {
 		subscribe,
 		init: async () => {
-			const currentAppVersion = await getVersion();
+			const appVersion = await getVersion();
 			const lastEvent = await getLastEvent();
+			const lastEventNodeId = await getEventId(lastEvent);
 			const cache = await CacheController.getData();
 
-			if (cache && cache.appVersion === currentAppVersion) {
-				cache.lastEvent = lastEvent;
-
-				return set(cache);
-			}
-
-			const lastEventNodeId = await getEventId(lastEvent);
-			const eventEntries = await getEventEntries(lastEventNodeId);
+			const isDataActual = cache && cache.appVersion === appVersion;
+			const eventsId = isDataActual ? cache.eventsId : { [lastEvent]: lastEventNodeId };
+			const entries = isDataActual ? cache.entries : { [lastEvent]: await getEventEntries(lastEventNodeId) };
 
 			const data: Data = {
-				appVersion: currentAppVersion,
+				appVersion,
 				lastEvent,
-				eventsId: { [lastEvent]: lastEventNodeId },
-				entries: { [lastEvent]: eventEntries },
-				visited: {},
-				favorites: {},
+				eventsId,
+				entries,
+				visited: cache ? cache.visited : {},
+				favorites: cache ? cache.favorites : {},
 			};
 
 			set(data);
