@@ -14,12 +14,12 @@
 	import { maxPage, wait } from './utils/helpers';
 	import { DEFAULT_FILTERS_STATE } from './constants';
 
-	const updateEntriesList = async () => {
+	const updateEntriesList = async (force = false) => {
 		$busy = true;
 		$modalsState.loader = true;
 		$modalsState.search = $filters.search && $filters.search.length >= 3;
 
-		if (!$data.entries[$event]) await data.updateEventData($event);
+		if (!$data.entries[$event] || force) await data.updateEventData($event);
 
 		filterEntriesList();
 
@@ -127,7 +127,7 @@
 			CacheController.setLastState($filters, $event);
 		});
 
-		await updateEntriesList();
+		await updateEntriesList(true);
 		await appWindow.show();
 		await wait(1000);
 
