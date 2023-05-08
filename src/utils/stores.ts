@@ -6,17 +6,9 @@ import api from './api';
 import { API_PATH, DEFAULT_FILTERS_STATE, MAX_NODES } from '../constants';
 import { asyncForEach, chunkArray } from './helpers';
 import Filters from './filters';
-import { getVersion } from '@tauri-apps/api/app';
 
 export const data: DataStore = (() => {
-	const { set, subscribe } = writable<Data>({
-		appVersion: '',
-		entries: {},
-		visited: {},
-		eventsId: {},
-		lastEvent: 0,
-		favorites: {},
-	});
+	const { set, subscribe } = writable<Data>();
 
 	const getLastEvent = async (): Promise<number> => {
 		const root = await api.get(`${API_PATH}node2/get/1`);
@@ -100,22 +92,21 @@ export const data: DataStore = (() => {
 	return {
 		subscribe,
 		init: async () => {
-			const appVersion = await getVersion();
 			const lastEvent = await getLastEvent();
 			const lastEventNodeId = await getEventId(lastEvent);
 			const cache = await CacheController.getData();
 
-			const isDataActual = cache && cache.appVersion === appVersion;
-			const eventsId = isDataActual ? cache.eventsId : { [lastEvent]: lastEventNodeId };
-			const entries = isDataActual ? cache.entries : { [lastEvent]: await getEventEntries(lastEventNodeId) };
+			const eventsId = cache ? cache.eventsId : { [lastEvent]: lastEventNodeId };
+			const entries = cache ? cache.entries : { [lastEvent]: await getEventEntries(lastEventNodeId) };
+			const visited = cache ? cache.visited : {};
+			const favorites = cache ? cache.favorites : {};
 
 			const data: Data = {
-				appVersion,
 				lastEvent,
 				eventsId,
 				entries,
-				visited: cache ? cache.visited : {},
-				favorites: cache ? cache.favorites : {},
+				visited,
+				favorites,
 			};
 
 			set(data);

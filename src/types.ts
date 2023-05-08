@@ -2,7 +2,6 @@ import type { Readable } from 'svelte/store';
 import type { CATEGORIES, PLATFORMS, SORT } from './enums';
 
 export interface Data {
-	appVersion: string,
 	lastEvent: number,
 	eventsId: { [key: number]: number },
 	entries: { [key: number]: Entry[] },
