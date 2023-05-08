@@ -127,9 +127,8 @@
 			CacheController.setLastState($filters, $event);
 		});
 
-		await updateEntriesList(true);
 		await appWindow.show();
-		await wait(1000);
+		await updateEntriesList(true);
 
 		disableSomeButtons();
 
