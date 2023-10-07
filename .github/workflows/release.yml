@@ -56,10 +56,25 @@ jobs:
           ls
 
       - name: upload artifact
+        if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundles
+          path: src-tauri/target/release/bundle/macos
+
+      - name: upload artifact
+        if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@v3
         with:
           name: bundles
           path: src-tauri/target/release/bundle/msi
+
+      - name: upload artifact
+        if: matrix.platform == 'ubuntu-20.04'
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundles
+          path: src-tauri/target/release/bundle/deb
 
   release:
     name: Release
