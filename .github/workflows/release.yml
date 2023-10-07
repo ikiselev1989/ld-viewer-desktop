@@ -49,6 +49,12 @@ jobs:
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
 
+      - name: change updater signature
+        shell: bash
+        run: |
+          cd src-tauri/target/release/bundle
+          ls
+
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
