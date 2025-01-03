@@ -1,10 +1,10 @@
 {
-  "version": "1.5.2",
-  "pub_date": "2023-10-07T10:27:07Z",
+  "version": "1.5.3",
+  "pub_date": "2025-01-03T21:55:56Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUc292N3Mwb2RxRUNNRWc1V0FHYUZXd085RTR5dTNTYjRVcklzeUdSTGxvQmc1NVYrTE1OWUZVSUw5UGhYRFZXSjdDbTRTcThaWGh3WU1JN2R3OUNQc1ZJaHdTOXByRVFnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNjk2Njc0NDA1CWZpbGU6THVkdW1EYXJlVmlld2VyXzEuNS4yX3g2NF9lbi1VUy5tc2kuemlwCmtRTnU0RkZjQlo5Ry9EVXB1VC8rZ3VneC83WTlkZHRCNUp6Z1NVYk0zd1RXcGxZU09aM2lDbFhoWURGN0tSNWdJRFE1SWpoNVFZSHozdEFjVHRVVURBPT0K",
-      "url": "https://github.com/ikiselev1989/ld-viewer-desktop/releases/download/v1.5.2/LudumDareViewer_1.5.2_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUc292N3Mwb2RxRUhDZDcwNHQ1SGJ2ZjFudHpPYzUrNlJTL1FKaXNLQWp3OXdoeEU5c2FQb2lSN09kNlppNWRidURSYnpaSkFhaUVJd05xRFpkQUNXS2g0ek4wTjk4RkFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzM1OTQxMDQ1CWZpbGU6THVkdW1EYXJlVmlld2VyXzEuNS4zX3g2NF9lbi1VUy5tc2kuemlwCjRDMks0Y0JqdHhROE5UTGJ3T3YvR3NLZll2eUFSV2RiL3d3bnZYd2R6VnFQTXZUVHpabTJwT2FIUkxRV3ZqaDZpOS9ENjg2SUZ0Mk5MVldYbm9jOUR3PT0K",
+      "url": "https://github.com/ikiselev1989/ld-viewer-desktop/releases/download/v1.5.3/LudumDareViewer_1.5.3_x64_en-US.msi.zip"
     }
   }
 }
