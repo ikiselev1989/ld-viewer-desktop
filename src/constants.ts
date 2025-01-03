@@ -2,7 +2,7 @@ import { CATEGORIES, SORT } from './enums';
 import type { Filters } from './types';
 
 export const LD_SITE_PATH = 'https://ldjam.com/';
-export const LD_STATIC_PATH = 'https://static.jam.vg/';
+export const LD_STATIC_PATH = 'https://static.jam.host/';
 export const API_PATH = 'https://api.ldjam.com/vx/';
 export const ICONS = {
 	'42440': '<i class="fas fa-link"></i>',
