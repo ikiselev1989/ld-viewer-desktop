@@ -6,6 +6,9 @@
   "repository": {
     "url": "https://github.com/ikiselev1989/ld-viewer-desktop.git"
   },
+  "engines": {
+    "node": ">=14.21.3"
+  },
   "release": {
     "plugins": [
       "@semantic-release/commit-analyzer",
